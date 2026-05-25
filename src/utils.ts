@@ -45,7 +45,10 @@ export function getLocalConfig(): Config {
 
 export async function fetchTorBoxStream(magnet: string, apiKey?: string): Promise<{ streamUrl?: string; message?: string; error?: string }> {
   try {
-    const response = await fetch("/api/torbox/play", {
+    const apiBase = typeof window !== "undefined" && window.location.hostname.includes("github.io")
+      ? "https://streamglass-886631110163.asia-southeast1.run.app"
+      : "";
+    const response = await fetch(`${apiBase}/api/torbox/play`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

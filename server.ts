@@ -13,6 +13,17 @@ async function startServer() {
   // Serve parsed JSON bodies
   app.use(express.json());
 
+  // CORS Middleware to allow requests from GitHub pages and other hosts
+  app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    next();
+  });
+
   // GET: Retrieve configuration status (e.g. if the default env API key is loaded)
   app.get("/api/config", (req, res) => {
     res.json({

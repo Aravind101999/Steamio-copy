@@ -58,7 +58,8 @@ export default function App() {
 
   const openPlayer = (item: MediaItem, episode: Episode | null = null, streamUrl: string | null = null) => {
     setModal(null);
-    setPlayer({ item, episode, streamUrl });
+    const resolvedUrl = streamUrl || item.videoUrl || "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    setPlayer({ item, episode, streamUrl: resolvedUrl });
   };
 
   return (

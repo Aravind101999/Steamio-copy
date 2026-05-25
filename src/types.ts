@@ -18,6 +18,8 @@ export interface Addon {
 export interface MediaItem {
   id: string;
   title: string;
+  poster?: string;
+  videoUrl?: string;
   year: number;
   rating: number;
   genre: string[];

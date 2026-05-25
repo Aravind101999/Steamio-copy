@@ -31,7 +31,9 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
         overflow: "hidden",
         cursor: "pointer",
         position: "relative",
-        background: item.backdrop,
+        background: item.poster 
+          ? `url(${item.poster}) center/cover no-repeat` 
+          : item.backdrop,
         transition: "transform 0.38s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.35s ease",
         transform: hov ? "scale(1.07) translateY(-5px)" : "scale(1)",
         boxShadow: hov
@@ -39,20 +41,22 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
           : "0 6px 20px rgba(0,0,0,0.35)",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-          width: w * 0.7,
-          height: w * 0.7,
-          borderRadius: "50%",
-          background: `radial-gradient(circle,${item.accent}45 0%,transparent 70%)`,
-          filter: "blur(18px)",
-          pointerEvents: "none",
-        }}
-      />
+      {!item.poster && (
+        <div
+          style={{
+            position: "absolute",
+            top: "30%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: w * 0.7,
+            height: w * 0.7,
+            borderRadius: "50%",
+            background: `radial-gradient(circle,${item.accent}45 0%,transparent 70%)`,
+            filter: "blur(18px)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
 
       {wide ? (
         <div
@@ -61,8 +65,8 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
             bottom: 0,
             left: 0,
             right: 0,
-            padding: "30px 14px 14px",
-            background: "linear-gradient(to top,rgba(0,0,0,0.92),transparent)",
+            padding: "45px 14px 14px",
+            background: "linear-gradient(to top, rgba(7,7,12,0.96) 0%, rgba(7,7,12,0.4) 60%, transparent 100%)",
           }}
         >
           <div
@@ -72,6 +76,7 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
               fontWeight: 700,
               color: "white",
               marginBottom: 4,
+              textShadow: "0 1px 3px rgba(0,0,0,0.8)",
             }}
           >
             {item.title}
@@ -93,59 +98,39 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
         </div>
       ) : (
         <>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              textAlign: "center",
-              width: "85%",
-              pointerEvents: "none",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'Cinzel',serif",
-                fontSize: "0.88rem",
-                fontWeight: 700,
-                color: "white",
-                textShadow: `0 0 25px ${item.accent}`,
-                lineHeight: 1.3,
-              }}
-            >
-              {item.title}
-            </div>
-            <div
-              style={{
-                fontFamily: "'Space Mono',monospace",
-                fontSize: "0.55rem",
-                color: `${item.accent}cc`,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                marginTop: 6,
-              }}
-            >
-              {item.genre[0]}
-            </div>
-          </div>
           {item.tag && (
-            <div style={{ position: "absolute", top: 10, left: 10 }}>
+            <div style={{ position: "absolute", top: 10, left: 10, zIndex: 10 }}>
               <Badge color={item.accent} sm>{item.tag}</Badge>
             </div>
           )}
+          
           <div
             style={{
               position: "absolute",
               bottom: 0,
               left: 0,
               right: 0,
-              padding: "20px 12px 11px",
-              background: "linear-gradient(to top,rgba(0,0,0,0.95),transparent)",
+              padding: "50px 12px 12px",
+              background: "linear-gradient(to top, rgba(7,7,12,0.95) 0%, rgba(7,7,12,0.5) 50%, transparent 100%)",
+              zIndex: 5,
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "0.58rem", color: "#ffffff66" }}>
+            <div
+              style={{
+                fontFamily: "'Cinzel',serif",
+                fontSize: "0.88rem",
+                fontWeight: 750,
+                color: "white",
+                lineHeight: 1.25,
+                marginBottom: 6,
+                textShadow: "0 1px 4px rgba(0,0,0,0.95)",
+              }}
+            >
+              {item.title}
+            </div>
+            
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "0.58rem", color: "rgba(255,255,255,0.6)" }}>
                 {item.duration}
               </span>
               <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "0.58rem", color: item.accent, fontWeight: 700 }}>
@@ -167,6 +152,7 @@ export default function GlassCard({ item, onClick, wide }: GlassCardProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            zIndex: 15,
           }}
         >
           <div

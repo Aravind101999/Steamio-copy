@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
     <script>
-      // Soft-patch window.fetch descriptors to make wait-free assignments safe in sandboxed iframes
+      // Soft-patch window.fetch to make assignments safe in sandboxed iframes
       (function() {
         try {
-          var originalFetch = window.fetch;
-          Object.defineProperty(window, 'fetch', {
-            get: function() { return originalFetch; },
-            set: function(val) { originalFetch = val; },
-            configurable: true,
-            enumerable: true
-          });
+          var originalFetch = window.fetch || globalThis.fetch;
+          if (originalFetch) {
+            Object.defineProperty(window, 'fetch', {
+              value: originalFetch,
+              writable: true,
+              configurable: true,
+              enumerable: true
+            });
+            if (typeof globalThis !== 'undefined' && globalThis !== window) {
+              Object.defineProperty(globalThis, 'fetch', {
+                value: originalFetch,
+                writable: true,
+                configurable: true,
+                enumerable: true
+              });
+            }
+          }
         } catch (e) {
           console.warn("Failed to patch window.fetch descriptor:", e);
         }

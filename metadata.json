@@ -1,0 +1,6 @@
+{
+  "name": "StreamGlass",
+  "description": "An elegant, cinematic media center dashboard featuring responsive glassmorphism, category discovery, library tracking, calendar schedules, and a custom media player simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

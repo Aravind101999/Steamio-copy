@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@keyframes throb {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ripple {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(8); opacity: 0; }
+}
+
+.sg-root * {
+  box-sizing: border-box;
+}
+
+/* Hide horizontal and vertical scrollbars inside the media center while maintaining scroll functions */
+::-webkit-scrollbar {
+  display: none !important;
+}
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #6366f1;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-25px) scale(1.06); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(35px) scale(1.04); }
+}
+
+.floating-shape-1 {
+  animation: float1 11s ease-in-out infinite;
+}
+
+.floating-shape-2 {
+  animation: float2 15s ease-in-out infinite;
+}
